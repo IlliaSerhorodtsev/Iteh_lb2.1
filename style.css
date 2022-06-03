@@ -20,3 +20,5 @@ form {
   {
     width: 50px;  
   }
+  tr:nth-child(odd) { background: #efefef; }
+ tr:nth-child(1) { background: rgba(125, 125, 125, 0.788); }

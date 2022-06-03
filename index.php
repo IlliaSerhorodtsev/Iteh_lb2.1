@@ -9,15 +9,14 @@ include('connect.php');
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
-  <title>Sergorodtsev_lb3</title>
+  <title>Sergorodtsev_lb1</title>
 </head>
 
 <body>
   <div class="MyForm">
 
     <form action="author.php" method="post">
-      <div class="SmallForm">
+      <div>
       <h3>Получить информацию по имени автора</h3>
       <select name='author' id='author'>
         <?php
@@ -41,7 +40,7 @@ include('connect.php');
     <br>
 
     <form action="date.php" method="post">
-    <div class="SmallForm">
+    <div >
       <h3>Получить информацию по году</h3>
       <input name='FYear' id="FYear">
 
@@ -57,12 +56,12 @@ include('connect.php');
     <br>
 
     <form action="publisher.php" method="post">
-    <div class="SmallForm">
+    <div >
       <h3>Получить информацию по издательству</h3>
       <select name='publisher' id='publisher'>
         <?php
         try {
-          $sql = 'SELECT DISTINCT publisher FROM iteh_lb1.literature';
+          $sql = 'SELECT DISTINCT publisher FROM iteh_lb1.literature Where publisher is not null';
           foreach ($dbh->query($sql) as $row) {
             $name = $row[0];
             print "<option value = '$name'>$name</option>";
