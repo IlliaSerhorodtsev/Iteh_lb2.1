@@ -12,7 +12,8 @@ include('connect.php');
     $sth = $dbh->prepare($sql);
     $sth->execute(array(':author' => $author));
     $timetable = $sth->fetchAll(PDO::FETCH_NUM);
-   
+    print "<table border ='1'>";
+    print " <tr><td><b>Назва</td></tr>";
     foreach ($timetable as $row) {
       print " <tr><td>$row[0]</td></tr>";
     }
@@ -21,7 +22,7 @@ include('connect.php');
   }
   ?>
 
-<<<<<<< HEAD:author.php
+
   <input type="button" value="Повернутися" onclick="history.back();return false;" />
 </body>
 <!--  -->

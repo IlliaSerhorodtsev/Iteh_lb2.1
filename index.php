@@ -1,40 +1,81 @@
 <?php
 include('connect.php');
 ?>
-
 <!DOCTYPE html>
-
+<html>
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=\, initial-scale=1.0">
-  <title>Document</title>
+  <meta name="viewport" content="width=, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+  <title>Sergorodtsev_lb3</title>
 </head>
 
 <body>
+  <div class="MyForm">
 
-  <?php
-  $db = "iteh_lb1";
-  if (isset($_POST['author'])) $author = $_POST['author'];
-  else $author = '';
+    <form action="author.php" method="post">
+      <div class="SmallForm">
+      <h3>Получить информацию по имени автора</h3>
+      <select name='author' id='author'>
+        <?php
+        try {
+          
+          $sql = 'SELECT name FROM iteh_lb1.authors';
+          foreach ($dbh->query($sql) as $row) {
+            $name = $row[0];
+            print "<option value = '$name'>$name</option>";
+          }
+        } catch (PDOException $e) {
 
-  try {
-    $sql = "SELECT $db.literature.name FROM $db.literature INNER JOIN $db.book_authors ON $db.book_authors.FID_Book=$db.literature.ID_Book INNER JOIN $db.authors ON $db.book_authors.FID_Authors=$db.authors.ID_Authors WHERE $db.authors.name=:author";
-    $sth = $dbh->prepare($sql);
-    $sth->execute(array(':author' => $author));
-    $timetable = $sth->fetchAll(PDO::FETCH_NUM);
-    print "<table border ='1'>";
-    print " <tr><td><b>Назва</td></tr>";
-    foreach ($timetable as $row) {
-      print " <tr><td>$row[0]</td></tr>";
-    }
-  } catch (PDOException $e) {
-        die("Error!:" . $e->getMessage() . "<br>");
-  }
-  ?>
+          die("Error!:" . $e->GetMessage() . "<br>");
+        }
+        ?>
+      </select>
+      <br>
+      <input type="submit" value="ok" >
+      </div>
+    </form>
+    <br>
 
-  <input type="button" value="Повернутися" onclick="history.back();return false;" />
+    <form action="date.php" method="post">
+    <div class="SmallForm">
+      <h3>Получить информацию по году</h3>
+      <input name='FYear' id="FYear">
+
+      </input>
+      ПО
+      <input name='SYear' id="SYear">
+
+      </input>
+      <br>
+      <input type="submit" value="ok" >
+    </div>
+    </form>
+    <br>
+
+    <form action="publisher.php" method="post">
+    <div class="SmallForm">
+      <h3>Получить информацию по издательству</h3>
+      <select name='publisher' id='publisher'>
+        <?php
+        try {
+          $sql = 'SELECT DISTINCT publisher FROM iteh_lb1.literature';
+          foreach ($dbh->query($sql) as $row) {
+            $name = $row[0];
+            print "<option value = '$name'>$name</option>";
+          }
+        } catch (PDOException $e) {
+
+          die("Error!:" . $e->GetMessage() . "<br>");
+        }
+        ?>
+      </select>
+      <br>
+      <input type="submit" value="ok">
+    
 </body>
-<!--  -->
+
 </html>
